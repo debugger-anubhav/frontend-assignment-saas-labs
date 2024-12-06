@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import App from "../App";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from "react";
 
 const mockUseFetchData = jest.fn();
