@@ -70,6 +70,7 @@ body {
   text-align: center;
   margin-right: 10px;
   box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  transition: .3s ease;
 }
 
 .pagination-button:active {
@@ -81,9 +82,16 @@ body {
   box-shadow: 0 0 20px rgba(0,0,0,0.2);
   outline: none;
   border: 1px solid #ddd;
+  transform: scale(1.1);
 }
 
 .pagination-button:focus {
   outline: none;
   border: 1px solid #ddd;
+}
+
+.pagination-list {
+  display: flex;
+  list-style: none;
+  list-style-type: none;
 }

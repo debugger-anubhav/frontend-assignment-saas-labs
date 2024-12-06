@@ -19,33 +19,46 @@ function App() {
     currentPage * 5
   );
 
-  return loading ? (
-    <p>Loading...</p>
-  ) : crowdFundingData.length > 0 ? (
-    <div className="container">
-      <table className="content-table">
-        <thead>
-          <tr>
-            <th>S.No.</th>
-            <th>Percentage funded</th>
-            <th>Amount pledged</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentPageData.map((data) => (
-            <CrowdFund key={data["s.no"]} data={data} />
-          ))}
-        </tbody>
-      </table>
+  return (
+    <main role="main" className="primary-wrapper">
+      {loading ? (
+        <p role="status" aria-live="polite">
+          Loading...
+        </p>
+      ) : crowdFundingData.length > 0 ? (
+        <div className="container">
+          <h2 className="sr-only">Crowdfunding data</h2>
+          <table
+            data-testidid="fund-data-table"
+            className="content-table"
+            aria-label="Crowdfunding data"
+          >
+            <thead>
+              <tr>
+                <th scope="col">S.No.</th>
+                <th scope="col">Percentage funded</th>
+                <th scope="col">Amount pledged</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentPageData.map((data) => (
+                <CrowdFund key={data["s.no"]} data={data} />
+              ))}
+            </tbody>
+          </table>
 
-      <Paginator
-        currentPage={currentPage}
-        totalPages={Math.ceil(crowdFundingData.length / 5)}
-        onPageChange={handlePageChange}
-      />
-    </div>
-  ) : (
-    <p>No data found</p>
+          <Paginator
+            currentPage={currentPage}
+            totalPages={Math.ceil(crowdFundingData.length / 5)}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      ) : (
+        <p role="status" aria-live="polite">
+          No data found
+        </p>
+      )}
+    </main>
   );
 }
 

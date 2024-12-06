@@ -19,7 +19,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
   const renderPageButtons = () => {
     const buttons = [];
-    const maxVisiblePages = 5; // Limit the number of visible pages
+    const maxVisiblePages = 8; // Limit the number of visible pages
     const startPage = Math.max(
       1,
       Math.min(
@@ -31,51 +31,69 @@ const Pagination: React.FC<PaginationProps> = ({
 
     for (let i = startPage; i <= endPage; i++) {
       buttons.push(
-        <button
-          key={i}
-          onClick={() => handlePageChange(i)}
-          className={`pagination-button ${i === currentPage ? "active" : ""}`}
-          style={{ color: i === currentPage ? "#009879" : "black" }}
-        >
-          {i}
-        </button>
+        <li>
+          <button
+            key={i}
+            onClick={() => handlePageChange(i)}
+            className={`pagination-button ${i === currentPage ? "active" : ""}`}
+            style={{ color: i === currentPage ? "#009879" : "black" }}
+            aria-current={i === currentPage ? "page" : undefined}
+            aria-label={`Page ${i}`}
+          >
+            {i}
+          </button>
+        </li>
       );
     }
     return buttons;
   };
 
   return (
-    <div className="pagination">
-      <button
-        onClick={() => handlePageChange(1)}
-        disabled={currentPage === 1}
-        className="pagination-button"
-      >
-        {"<<"}
-      </button>
-      <button
-        onClick={() => handlePageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-        className="pagination-button"
-      >
-        {"<"}
-      </button>
-      {renderPageButtons()}
-      <button
-        onClick={() => handlePageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-        className="pagination-button"
-      >
-        {">"}
-      </button>
-      <button
-        onClick={() => handlePageChange(totalPages)}
-        disabled={currentPage === totalPages}
-        className="pagination-button"
-      >
-        {">>"}
-      </button>
-    </div>
+    <nav className="pagination" aria-label="Pagination Navigation">
+      <ul className="pagination-list">
+        <li className="pagination-item">
+          <button
+            onClick={() => handlePageChange(1)}
+            disabled={currentPage === 1}
+            className="pagination-button"
+          >
+            {"<<"}
+          </button>
+        </li>
+
+        <li>
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="pagination-button"
+          >
+            {"<"}
+          </button>
+        </li>
+
+        {renderPageButtons()}
+
+        <li>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="pagination-button"
+          >
+            {">"}
+          </button>
+        </li>
+
+        <li>
+          <button
+            onClick={() => handlePageChange(totalPages)}
+            disabled={currentPage === totalPages}
+            className="pagination-button"
+          >
+            {">>"}
+          </button>
+        </li>
+      </ul>
+    </nav>
   );
 };
 
